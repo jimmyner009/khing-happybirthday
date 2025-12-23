@@ -1,0 +1,1124 @@
+/* Pink Birthday Surprise Website Styles */
+
+/* Custom Font */
+@font-face {
+    font-family: 'DekDeu';
+    src: url('./fonts/388PANIDekDeuDemo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DekDeu', 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(180deg, #ffe8f0 0%, #ffd9e8 50%, #ffcce0 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Falling Hearts Animation */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    top: -20px;
+    font-size: 16px;
+    color: #ff8a9b;
+    opacity: 0.6;
+    animation: fallHeart linear infinite;
+}
+
+@keyframes fallHeart {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Pink Theme Color Variables - Enhanced */
+:root {
+    --primary-pink: #ff4db3;
+    --light-pink: #ffb3d9;
+    --dark-pink: #e6007a;
+    --soft-pink: #ffe6f2;
+    --accent-pink: #ff99d6;
+    --white: #ffffff;
+    --cream: #fef9f6;
+    --shadow: rgba(230, 0, 122, 0.3);
+    --shadow-light: rgba(255, 179, 217, 0.4);
+    --shadow-dark: rgba(230, 0, 122, 0.5);
+    --text-primary: #2d1b2e;
+    --text-secondary: #5a4a5c;
+    --border-radius: 20px;
+    --border-radius-small: 10px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Main Application Container - Enhanced Grid Layout */
+#app {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Page Container - Enhanced with Better Responsive Design */
+.page {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: 
+        0 10px 30px var(--shadow),
+        0 0 0 1px var(--light-pink);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    opacity: 0;
+    animation: contentAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes pageAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page::before {
+    display: none;
+}
+
+@keyframes contentAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Page Transition Classes */
+.page-enter {
+    animation: pageSlideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter-from-left {
+    animation: pageSlideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-exit {
+    animation: pageSlideOutLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-exit-to-right {
+    animation: pageSlideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-fade-out {
+    animation: pageFadeOut 0.3s ease-out;
+}
+
+/* Enhanced Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 5px 15px var(--shadow);
+    }
+    50% {
+        box-shadow: 0 8px 25px var(--shadow-dark), 0 0 20px var(--light-pink);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Page Transition Animations */
+@keyframes pageSlideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pageSlideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pageSlideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes pageSlideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes pageFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Enhanced Typography with Pink Theme */
+h1 {
+    color: var(--primary-pink);
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    color: var(--dark-pink);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+h3 {
+    color: var(--primary-pink);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Special text styles */
+.text-highlight {
+    color: var(--primary-pink);
+    font-weight: 600;
+}
+
+.text-large {
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    font-weight: 500;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-italic {
+    font-style: italic;
+    color: var(--accent-pink);
+}
+
+/* Enhanced Buttons with Pink Theme */
+.btn {
+    background: #ff99cc;
+    color: var(--white);
+    border: none;
+    padding: 15px 30px;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(255, 153, 204, 0.4);
+    margin: 10px;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 153, 204, 0.5);
+    background: #ff85c0;
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 8px rgba(255, 153, 204, 0.4);
+    background: #ff70b3;
+    transition: all 0.1s ease;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 153, 204, 0.5);
+}
+
+/* Button variants */
+.btn-secondary {
+    background: #ffb3d9;
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background: #ff99cc;
+    color: var(--white);
+}
+
+/* Special animated button for wishes */
+.wishes-button {
+}
+
+.wishes-button:hover {
+}
+
+/* Home Page Styles - Similar to reference image */
+.home-page {
+    background: transparent;
+    box-shadow: none;
+    max-width: 100%;
+    padding: 20px;
+    animation: none;
+    opacity: 1;
+}
+
+.home-page::before {
+    display: none;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    opacity: 0;
+    animation: contentAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.home-image {
+    max-width: 400px;
+    width: 90%;
+    height: auto;
+    margin-bottom: 40px;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25)) drop-shadow(0 8px 16px rgba(230, 0, 122, 0.2));
+    animation: gentleFloat 6s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.home-message {
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    color: white;
+    margin-bottom: 25px;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.534);
+    animation: none;
+}
+
+.home-btn {
+    background: #ff99cc;
+    color: var(--white);
+    border: none;
+    padding: 12px 50px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 153, 204, 0.4);
+    transition: all 0.2s ease;
+    font-weight: 500;
+    animation: none;
+}
+
+.home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 153, 204, 0.5);
+    background: #ff85c0;
+}
+
+.home-btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(255, 153, 204, 0.4);
+    background: #ff70b3;
+}
+
+/* PIN Page Styles */
+.pin-page {
+    background: transparent;
+    box-shadow: none;
+    max-width: 100%;
+    padding: 20px;
+    animation: none;
+    opacity: 1;
+}
+
+.pin-page::before {
+    display: none;
+}
+
+.pin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    opacity: 0;
+    animation: contentAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.pin-box {
+    background: #ff99cc;
+    border-radius: 25px;
+    padding: 30px 40px;
+    box-shadow: 0 10px 30px rgba(255, 153, 204, 0.4);
+    text-align: center;
+}
+
+.pin-title {
+    color: white;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.pin-hint {
+    color: white;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.pin-inputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.pin-digit {
+    width: 50px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+    background: white;
+    color: #333;
+    font-family: inherit;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pin-digit:focus {
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(255, 255, 255, 0.5);
+    transform: scale(1.08);
+}
+
+.pin-btn {
+    margin-top: 25px;
+}
+
+@media (max-width: 480px) {
+    .pin-box {
+        padding: 25px 20px;
+    }
+    
+    .pin-digit {
+        width: 45px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+    
+    .pin-inputs {
+        gap: 8px;
+    }
+}
+
+/* Gift Page Styles */
+.gift-page {
+    background: transparent;
+    box-shadow: none;
+    max-width: 100%;
+    padding: 20px;
+    animation: none;
+    opacity: 1;
+}
+
+.gift-page::before {
+    display: none;
+}
+
+.gift-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    opacity: 0;
+    animation: contentAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.gift-image {
+    max-width: 350px;
+    width: 90%;
+    height: auto;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
+    animation: gentleFloat 6s ease-in-out infinite;
+}
+
+.gift-message {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    color: var(--primary-pink);
+    margin-bottom: 25px;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(230, 0, 122, 0.2);
+}
+
+.gift-btn {
+    margin-top: 10px;
+}
+
+/* Envelope Page Styles */
+.envelope-page {
+    background: transparent;
+    box-shadow: none;
+    max-width: 100%;
+    padding: 20px;
+    animation: none;
+    opacity: 1;
+}
+
+.envelope-page::before {
+    display: none;
+}
+
+.envelope-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    opacity: 0;
+    animation: contentAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.envelope-img {
+    max-width: 320px;
+    width: 85%;
+    height: auto;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+    animation: gentleFloat 6s ease-in-out infinite;
+}
+
+.envelope-message {
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    color: #303030;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.envelope-btn {
+    margin-top: 10px;
+}
+
+/* Enhanced Images with Pink Theme */
+.page-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-small);
+    margin: 20px 0;
+    box-shadow: 
+        0 8px 20px var(--shadow),
+        0 0 0 3px var(--light-pink);
+    transition: all 0.3s ease;
+}
+
+.page-image:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        0 12px 30px var(--shadow-dark),
+        0 0 0 3px var(--primary-pink);
+}
+
+/* Image containers for better layout */
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.image-container::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, var(--light-pink), var(--accent-pink));
+    border-radius: var(--border-radius-small);
+    z-index: -1;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.image-container:hover::after {
+    opacity: 0.3;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Special image effects */
+.birthday-cake-image {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.gift-box-image {
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+.envelope-image {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Enhanced Input Fields with Pink Theme */
+.input-field {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    border: 2px solid var(--light-pink);
+    border-radius: var(--border-radius-small);
+    margin: 10px 0;
+    text-align: center;
+    background: var(--soft-pink);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.input-field::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-pink);
+    box-shadow: 
+        0 0 0 3px var(--shadow-light),
+        0 5px 15px var(--shadow);
+    background: var(--white);
+    transform: scale(1.02);
+}
+
+.input-field:invalid {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+/* Input group for better form layout */
+.input-group {
+    margin: 20px 0;
+    position: relative;
+}
+
+.input-label {
+    display: block;
+    color: var(--primary-pink);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Enhanced Cards with Pink Theme */
+.card {
+    background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+    border-radius: var(--border-radius-small);
+    padding: 25px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 77, 179, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-pink), var(--accent-pink));
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.card:hover {
+    border-color: var(--primary-pink);
+    transform: translateY(-5px);
+    box-shadow: 
+        0 12px 30px var(--shadow-dark),
+        0 0 0 1px var(--primary-pink);
+    background: linear-gradient(135deg, var(--white) 0%, var(--soft-pink) 100%);
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card:hover::after {
+    opacity: 0.05;
+}
+
+.card:active {
+    transform: translateY(-4px) scale(1.01);
+    transition: transform 0.1s;
+}
+
+/* Card content styling */
+.card h2 {
+    margin-bottom: 10px;
+    animation: none; /* Override global h2 animation for cards */
+    transition: var(--transition);
+}
+
+.card p {
+    margin-bottom: 0;
+    animation: none; /* Override global p animation for cards */
+    transition: var(--transition);
+}
+
+.card:hover h2 {
+    color: var(--primary-pink);
+    transform: translateY(-2px);
+}
+
+.card:hover p {
+    color: var(--dark-pink);
+    transform: translateY(-1px);
+}
+
+/* Special card animations */
+.birthday-letter-card {
+    background: linear-gradient(135deg, #ffa9c6 0%, #ff5f94 50%, #8f0b47 100%);
+    box-shadow: 0 8px 25px rgba(230, 0, 122, 0.4);
+    border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.birthday-letter-card h2 {
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.birthday-letter-card p {
+    color: white;
+    opacity: 0.9;
+}
+
+.birthday-letter-card:hover {
+    background: linear-gradient(135deg, #fc9cbc 0%, #fd5089 50%, #770438 100%);
+    box-shadow: 0 15px 40px rgba(230, 0, 122, 0.5);
+    transform: translateY(-5px);
+}
+
+.birthday-letter-card:hover h2,
+.birthday-letter-card:hover p {
+    color: white;
+    transform: none;
+}
+
+/* Enhanced Responsive Design with Grid and Flexbox */
+@media (max-width: 768px) {
+    #app {
+        padding: 15px;
+    }
+    
+    .page {
+        padding: 30px 20px;
+        margin: 10px;
+        max-width: 100%;
+    }
+    
+    .btn {
+        padding: 12px 25px;
+        margin: 8px;
+        width: auto;
+        min-width: 120px;
+    }
+    
+    .card {
+        padding: 20px;
+        margin: 15px 0;
+    }
+    
+    .input-field {
+        padding: 12px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #app {
+        padding: 10px;
+    }
+    
+    .page {
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        margin: 5px;
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .card {
+        padding: 15px;
+        margin: 10px 0;
+    }
+    
+    .input-field {
+        padding: 10px 12px;
+    }
+    
+    .page-image {
+        margin: 15px 0;
+    }
+}
+
+@media (max-width: 320px) {
+    .page {
+        padding: 15px 10px;
+    }
+    
+    .btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1200px) {
+    .page {
+        max-width: 600px;
+        padding: 50px;
+    }
+    
+    #app {
+        padding: 40px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .page-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Enhanced Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Spacing utilities */
+.mb-10 { margin-bottom: 10px; }
+.mb-15 { margin-bottom: 15px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-30 { margin-bottom: 30px; }
+
+.mt-10 { margin-top: 10px; }
+.mt-15 { margin-top: 15px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+
+.p-10 { padding: 10px; }
+.p-15 { padding: 15px; }
+.p-20 { padding: 20px; }
+.p-30 { padding: 30px; }
+
+/* Flexbox utilities */
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* Grid utilities */
+.grid {
+    display: grid;
+}
+
+.grid-center {
+    place-items: center;
+}
+
+/* Animation utilities */
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Error message styling */
+.error-message {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: var(--border-radius-small);
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Success message styling */
+.success-message {
+    color: var(--dark-pink);
+    background: var(--soft-pink);
+    border: 1px solid var(--light-pink);
+    border-radius: var(--border-radius-small);
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Loading spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--light-pink);
+    border-top: 4px solid var(--primary-pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Focus management for accessibility */
+.focus-visible {
+    outline: 2px solid var(--primary-pink);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white !important;
+    }
+    
+    .page {
+        box-shadow: none !important;
+        border: 1px solid #ccc;
+    }
+    
+    .btn {
+        background: #ccc !important;
+        color: black !important;
+    }
+}

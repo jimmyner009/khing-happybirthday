@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Kiro
+.kiro/
+
+# Logs
+*.log
+
+# Dependencies (if any)
+node_modules/
