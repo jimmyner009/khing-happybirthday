@@ -623,7 +623,7 @@ const BackgroundMusic = {
     
     tracks: {
         birthday: './audio/Happy%20Birthday%20Piano.mp3',
-        letter: './audio/%E0%B9%80%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B2%E0%B8%AA%E0%B9%88%E0%B8%87%20(BYE)%20First%20Anuwat%20x%20SARAN.mp3'
+        letter: './audio/BYE.mp3'
     },
     
     init(track = 'birthday') {
