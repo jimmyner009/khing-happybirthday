@@ -438,10 +438,6 @@ class LetterPage {
     }
     
     afterRender() {
-        // Delay 5 seconds before changing to letter song
-        setTimeout(() => {
-            BackgroundMusic.changeTrack('letter');
-        }, 5000);
         console.log('Birthday letter displayed successfully!');
     }
 }
@@ -473,6 +469,10 @@ class EnvelopePage {
         const openLetterButton = document.getElementById('open-letter-btn');
         if (openLetterButton) {
             openLetterButton.addEventListener('click', function() {
+                // Change to letter song when clicking the button (for mobile)
+                setTimeout(() => {
+                    BackgroundMusic.changeTrack('letter');
+                }, 5000);
                 window.router.navigate('letter');
             });
         }
