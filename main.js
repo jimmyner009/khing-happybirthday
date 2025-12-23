@@ -469,7 +469,7 @@ class EnvelopePage {
         const openLetterButton = document.getElementById('open-letter-btn');
         if (openLetterButton) {
             openLetterButton.addEventListener('click', function() {
-                // Change to letter song when clicking the button (for mobile)
+                // Change to letter song with 5 second delay
                 setTimeout(() => {
                     BackgroundMusic.changeTrack('letter');
                 }, 5000);
@@ -618,8 +618,9 @@ class PinPage {
 // Background Music Manager
 const BackgroundMusic = {
     audio: null,
+    audio2: null,
     isPlaying: false,
-    currentTrack: '',
+    currentTrack: 'birthday',
     
     tracks: {
         birthday: './audio/Happy%20Birthday%20Piano.mp3',
@@ -628,21 +629,31 @@ const BackgroundMusic = {
     
     init() {
         if (this.audio) return;
+        
+        // Create both audio elements
         this.audio = new Audio(this.tracks.birthday);
         this.audio.loop = true;
         this.audio.volume = 0.5;
-        this.currentTrack = 'birthday';
+        
+        this.audio2 = new Audio(this.tracks.letter);
+        this.audio2.loop = true;
+        this.audio2.volume = 0.5;
         
         this.audio.addEventListener('error', (e) => {
-            console.error('Audio error:', e);
+            console.error('Audio 1 error:', e);
+        });
+        this.audio2.addEventListener('error', (e) => {
+            console.error('Audio 2 error:', e);
         });
     },
     
-    play(track = 'birthday') {
+    play() {
         if (!this.audio) this.init();
         
+        const currentAudio = this.currentTrack === 'birthday' ? this.audio : this.audio2;
+        
         if (!this.isPlaying) {
-            this.audio.play().then(() => {
+            currentAudio.play().then(() => {
                 this.isPlaying = true;
                 console.log('Background music started:', this.currentTrack);
             }).catch(err => {
@@ -651,45 +662,61 @@ const BackgroundMusic = {
         }
     },
     
+    // Call this on user click to unlock audio2 for mobile
+    unlockAudio2() {
+        if (this.audio2) {
+            this.audio2.play().then(() => {
+                this.audio2.pause();
+                this.audio2.currentTime = 0;
+                console.log('Audio 2 unlocked for mobile');
+            }).catch(err => {
+                console.warn('Could not unlock audio2:', err);
+            });
+        }
+    },
+    
     changeTrack(track) {
-        if (!this.audio || !this.tracks[track]) return;
+        if (!this.audio || !this.audio2) return;
         
-        const wasPlaying = this.isPlaying;
-        this.audio.pause();
-        this.audio.src = this.tracks[track];
-        this.audio.load();
-        this.currentTrack = track;
-        this.isPlaying = false;
-        
-        if (wasPlaying) {
+        if (track === 'letter' && this.currentTrack !== 'letter') {
+            this.audio.pause();
+            this.audio2.play().then(() => {
+                this.isPlaying = true;
+                this.currentTrack = 'letter';
+                console.log('Changed to letter track');
+            }).catch(err => {
+                console.warn('Could not play letter track:', err);
+            });
+        } else if (track === 'birthday' && this.currentTrack !== 'birthday') {
+            this.audio2.pause();
             this.audio.play().then(() => {
                 this.isPlaying = true;
-                console.log('Changed to track:', track);
+                this.currentTrack = 'birthday';
+                console.log('Changed to birthday track');
             }).catch(err => {
-                console.warn('Could not play music:', err);
+                console.warn('Could not play birthday track:', err);
             });
         }
     },
     
     pause() {
-        if (this.audio && this.isPlaying) {
-            this.audio.pause();
-            this.isPlaying = false;
-        }
+        if (this.audio) this.audio.pause();
+        if (this.audio2) this.audio2.pause();
+        this.isPlaying = false;
     },
     
     toggle() {
         if (this.isPlaying) {
             this.pause();
         } else {
-            this.play(this.currentTrack);
+            this.play();
         }
     },
     
     setVolume(vol) {
-        if (this.audio) {
-            this.audio.volume = Math.max(0, Math.min(1, vol));
-        }
+        const v = Math.max(0, Math.min(1, vol));
+        if (this.audio) this.audio.volume = v;
+        if (this.audio2) this.audio2.volume = v;
     }
 };
 
@@ -723,6 +750,8 @@ class HomePage {
                 console.log('Button clicked, starting music...');
                 // Start background music when user clicks
                 BackgroundMusic.play();
+                // Unlock audio2 for mobile (so it can play later)
+                BackgroundMusic.unlockAudio2();
                 window.router.navigate('pin');
             });
         }
