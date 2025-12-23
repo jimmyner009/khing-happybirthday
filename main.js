@@ -626,18 +626,12 @@ const BackgroundMusic = {
         letter: './audio/BYE.mp3'
     },
     
-    init(track = 'birthday') {
-        if (this.audio && this.currentTrack === track) return;
-        
-        if (this.audio) {
-            this.audio.pause();
-            this.audio = null;
-        }
-        
-        this.audio = new Audio(this.tracks[track] || this.tracks.birthday);
+    init() {
+        if (this.audio) return;
+        this.audio = new Audio(this.tracks.birthday);
         this.audio.loop = true;
         this.audio.volume = 0.5;
-        this.currentTrack = track;
+        this.currentTrack = 'birthday';
         
         this.audio.addEventListener('error', (e) => {
             console.error('Audio error:', e);
@@ -645,14 +639,12 @@ const BackgroundMusic = {
     },
     
     play(track = 'birthday') {
-        if (this.currentTrack !== track || !this.audio) {
-            this.init(track);
-        }
+        if (!this.audio) this.init();
         
         if (!this.isPlaying) {
             this.audio.play().then(() => {
                 this.isPlaying = true;
-                console.log('Background music started:', track);
+                console.log('Background music started:', this.currentTrack);
             }).catch(err => {
                 console.warn('Could not play music:', err);
             });
@@ -660,11 +652,22 @@ const BackgroundMusic = {
     },
     
     changeTrack(track) {
+        if (!this.audio || !this.tracks[track]) return;
+        
         const wasPlaying = this.isPlaying;
-        this.pause();
-        this.init(track);
+        this.audio.pause();
+        this.audio.src = this.tracks[track];
+        this.audio.load();
+        this.currentTrack = track;
+        this.isPlaying = false;
+        
         if (wasPlaying) {
-            this.play(track);
+            this.audio.play().then(() => {
+                this.isPlaying = true;
+                console.log('Changed to track:', track);
+            }).catch(err => {
+                console.warn('Could not play music:', err);
+            });
         }
     },
     
